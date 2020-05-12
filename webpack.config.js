@@ -1,10 +1,15 @@
 const webpack = require('webpack');
+const path = require('path');
+
 
 module.exports = {
   entry: './main.js',
+  //entry: './example.js',
   output: {
-    filename: 'yargsBrowser.js'
+    path: path.resolve(__dirname, "./lib"),
+    filename: 'index.js'
   },
+  mode: 'development',
   resolve: {
     // Use our versions of Node modules.
     alias: {
@@ -15,6 +20,13 @@ module.exports = {
       'bufferGlobal': 'browserfs/dist/shims/bufferGlobal.js',
       'bfsGlobal': require.resolve('browserfs')
     }
+  },
+  // webpack-dev-server configuration
+  devServer: {
+    // Can be omitted unless you are using 'docker' 
+    host: '0.0.0.0',
+    watchContentBase: true,
+    port: 9001
   },
   plugins: [
     // Expose BrowserFS, process, and Buffer globals.
